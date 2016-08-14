@@ -125,7 +125,7 @@ public class Set
 
 			if (max > maxLength)
 			{
-				System.out.println("New max " + max + "! " + hand);
+				System.out.println("New max " + max + ": " + hand);
 				maxLength = max;
 			}
 		}

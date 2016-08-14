@@ -64,8 +64,17 @@ public class Card
 	@Override
 	public String toString()
 	{
-		return "Card{" + Arrays.toString(characteristics) +
-				'}';
+		if (characteristics == null)
+			return "null";
+		if (characteristics.length == 0)
+			return "";
+
+		StringBuilder b = new StringBuilder();
+		for (int i = 0; i< characteristics.length; i++) {
+			b.append(characteristics[i]);
+		}
+
+		return b.toString();
 	}
 
 	public int getN()
