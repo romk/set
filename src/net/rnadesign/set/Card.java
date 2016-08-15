@@ -5,7 +5,7 @@ import java.util.Arrays;
 /**
  * Created by romke on 8/8/16.
  */
-public class Card
+public class Card implements Comparable
 {
 	private final int n;
 	private int[] characteristics;
@@ -81,4 +81,21 @@ public class Card
 	{
 		return n;
 	}
+
+	@Override
+	public int compareTo(Object o)
+	{
+		Card card = (Card) o;
+		if (card == this){return 0;}
+		for (int i =0;i<n;i++)
+		{
+			if (characteristics[i] > card.characteristics[i]){
+				return 1;}
+			if (characteristics[i] < card.characteristics[i]){
+				return -1;}
+		}
+		return 0;
+	}
+
+
 }

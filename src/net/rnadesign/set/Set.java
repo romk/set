@@ -1,8 +1,6 @@
 package net.rnadesign.set;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
+import java.util.*;
 
 /**
  * Created by romke on 8/8/16.
@@ -121,12 +119,13 @@ public class Set
 
 		for (Hand hand : result)
 		{
-			max = Math.max(max, hand.size());
-
-			if (max > maxLength)
+			int length = hand.size();
+			if (length >= maxLength)
 			{
-				System.out.println("New max " + max + ": " + hand);
-				maxLength = max;
+				List<Card> list = Arrays.asList(hand.toArray(new Card[hand.size()]));
+				Collections.sort(list);
+				System.out.println("#" + length + ": " + list);
+				maxLength = length;
 			}
 		}
 
