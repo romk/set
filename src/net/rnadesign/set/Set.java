@@ -9,7 +9,8 @@ public class Set
 {
 	private final int n;
 	private final boolean keepAll;
-	private int maxLength = 0;
+	private int minLengthToKeep = 0;
+	private int minLengthToLog = 0;
 
 	public Set(int n, boolean keepAll)
 	{
@@ -82,6 +83,8 @@ public class Set
 		{
 			// maximal, because there are no extensions
 			result.add(setfree);
+
+			log(setfree);
 		}
 
 		Iterator<Card> iterator = remainingAdditions.iterator();
@@ -109,24 +112,27 @@ public class Set
 		return result;
 	}
 
+	private void log(Hand hand)
+	{
+		int length = hand.size();
+		if (length >= minLengthToLog)
+		{
+			List<Card> list = Arrays.asList(hand.toArray(new Card[hand.size()]));
+			Collections.sort(list);
+			System.out.println("#" + length + ": " + list);
+			minLengthToLog = length;
+		}
+	}
+
 	private void keepResults(Collection<Hand> result, Collection<Hand> newResult)
 	{
 		// union
 		result.addAll(newResult);
 
-		// find max length
-		int max = 0;
 
 		for (Hand hand : result)
 		{
-			int length = hand.size();
-			if (length >= maxLength)
-			{
-				List<Card> list = Arrays.asList(hand.toArray(new Card[hand.size()]));
-				Collections.sort(list);
-				System.out.println("#" + length + ": " + list);
-				maxLength = length;
-			}
+			minLengthToKeep = Math.max(minLengthToKeep, hand.size());
 		}
 
 		if (!keepAll)
@@ -137,7 +143,7 @@ public class Set
 
 			{
 				Hand next = i.next();
-				if (next.size() < max)
+				if (next.size() < minLengthToKeep)
 				{
 					i.remove();
 				}
